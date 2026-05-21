@@ -1,23 +1,30 @@
 # Instruction Guides
 
-This repository contains separate beginner-friendly guides for common development tasks.
+This repository contains beginner-friendly development instructions in web format.
 
-## Guides
+## Open Website
 
-| Folder | Topic |
+Open this file in a browser:
+
+```text
+index.html
+```
+
+## Web Files
+
+| File | Purpose |
 | --- | --- |
-| [01-python-virtual-environment](01-python-virtual-environment/README.md) | Create and use a Python virtual environment |
-| [02-git-basics](02-git-basics/README.md) | Track files using Git |
-| [03-github-push](03-github-push/README.md) | Push a local project to GitHub |
-| [04-django-project-setup](04-django-project-setup/README.md) | Basic Django setup commands |
+| `index.html` | Main web page layout |
+| `assets/app.js` | Sidebar, guide content, search, and copy buttons |
+| `.gitignore` | Prevents unwanted files like `venv` and `.env` from being pushed |
 
-## How to Read
+## Guide Topics
 
-Open one folder at a time from the VS Code sidebar.
+- Python virtual environment
+- Git basics
+- GitHub push
+- Django project setup
 
-Each folder has its own `README.md` file with:
+## Markdown Backup
 
-- Purpose
-- Step-by-step commands
-- Short explanation
-- Common mistakes
+The numbered folders also contain simple `README.md` versions of each guide.

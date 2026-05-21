@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instruction Guides</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ink: "#172033",
+              muted: "#627084",
+              line: "#d9e1ea",
+              wash: "#f5f8fb",
+              brand: "#0f766e",
+              brandSoft: "#dff7f3"
+            },
+            boxShadow: {
+              soft: "0 18px 45px rgba(23, 32, 51, 0.08)"
+            }
+          }
+        }
+      };
+    </script>
+  </head>
+  <body class="bg-wash text-ink antialiased">
+    <div class="min-h-screen lg:grid lg:grid-cols-[310px_1fr]">
+      <aside class="border-b border-line bg-white lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
+        <div class="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
+          <a href="#" class="flex items-center gap-3" aria-label="Instruction Guides home">
+            <span class="grid h-10 w-10 place-items-center rounded bg-brand text-sm font-bold text-white">IG</span>
+            <span>
+              <span class="block text-base font-bold">Instruction Guides</span>
+              <span class="block text-xs font-medium text-muted">HTML Tailwind JS</span>
+            </span>
+          </a>
+          <button id="menuToggle" class="rounded border border-line px-3 py-2 text-sm font-semibold text-ink lg:hidden">
+            Menu
+          </button>
+        </div>
+
+        <div id="sidebarBody" class="hidden px-4 py-5 lg:block">
+          <label for="searchInput" class="mb-2 block text-xs font-bold uppercase text-muted">Search guide</label>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search commands or topics"
+            class="mb-5 w-full rounded border border-line bg-white px-3 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brandSoft"
+          />
+
+          <nav aria-label="Guide topics">
+            <p class="mb-3 text-xs font-bold uppercase text-muted">Instructions</p>
+            <div id="guideList" class="space-y-2"></div>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+        <section class="mb-6 border-b border-line pb-6">
+          <div class="mx-auto max-w-5xl">
+            <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h1 class="text-3xl font-bold tracking-normal text-ink sm:text-4xl">Development Instruction Guides</h1>
+                <p class="mt-3 max-w-2xl text-base leading-7 text-muted">
+                  Separate guides for virtual environment setup, Git, GitHub push, and Django commands.
+                </p>
+              </div>
+              <div class="flex gap-2">
+                <button id="printButton" class="rounded bg-ink px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-700">
+                  Print
+                </button>
+                <button id="copyAllButton" class="rounded border border-line bg-white px-4 py-2.5 text-sm font-bold text-ink hover:border-brand">
+                  Copy Guide
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mx-auto max-w-5xl">
+          <div id="guideMeta" class="mb-4 flex flex-wrap gap-2"></div>
+          <article id="guideContent" class="rounded border border-line bg-white p-5 shadow-soft sm:p-7"></article>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="fixed bottom-5 left-1/2 hidden -translate-x-1/2 rounded bg-ink px-4 py-2 text-sm font-semibold text-white shadow-soft">
+      Copied
+    </div>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
