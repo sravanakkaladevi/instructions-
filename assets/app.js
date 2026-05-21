@@ -197,6 +197,55 @@ function commandBlock(command) {
   `;
 }
 
+function customPanel(guide) {
+  if (guide.id === "venv") {
+    return `
+      <section class="mb-7 rounded border border-brand/30 bg-brandSoft p-4">
+        <h3 class="text-lg font-bold text-ink">Custom Python Version Command</h3>
+        <p class="mt-1 text-sm leading-6 text-muted">Enter your Python version and environment name, then copy the generated command.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
+          <label class="block">
+            <span class="mb-1 block text-xs font-bold uppercase text-muted">Python version</span>
+            <input id="pythonVersionInput" class="w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" value="3.11" placeholder="3.11" />
+          </label>
+          <label class="block">
+            <span class="mb-1 block text-xs font-bold uppercase text-muted">Venv name</span>
+            <input id="venvNameInput" class="w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" value="venv" placeholder="venv" />
+          </label>
+          <div class="flex items-end">
+            <button id="copyPythonCommand" class="w-full rounded bg-brand px-4 py-2 text-sm font-bold text-white hover:bg-teal-800">Copy</button>
+          </div>
+        </div>
+        <div class="mt-4" id="pythonCommandPreview"></div>
+      </section>
+    `;
+  }
+
+  if (guide.id === "github") {
+    return `
+      <section class="mb-7 rounded border border-brand/30 bg-brandSoft p-4">
+        <h3 class="text-lg font-bold text-ink">Custom GitHub URL Setup</h3>
+        <p class="mt-1 text-sm leading-6 text-muted">Paste your GitHub repository URL and copy the ready command flow.</p>
+        <div class="mt-4 grid gap-3 lg:grid-cols-[1fr_auto_auto]">
+          <label class="block">
+            <span class="mb-1 block text-xs font-bold uppercase text-muted">GitHub repository URL</span>
+            <input id="githubUrlInput" class="w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" value="https://github.com/username/repository-name.git" />
+          </label>
+          <div class="flex items-end">
+            <button id="pasteGithubUrl" class="w-full rounded border border-brand bg-white px-4 py-2 text-sm font-bold text-brand hover:bg-white/70">Paste</button>
+          </div>
+          <div class="flex items-end">
+            <button id="copyGithubCommands" class="w-full rounded bg-brand px-4 py-2 text-sm font-bold text-white hover:bg-teal-800">Copy All</button>
+          </div>
+        </div>
+        <div class="mt-4 space-y-3" id="githubCommandPreview"></div>
+      </section>
+    `;
+  }
+
+  return "";
+}
+
 function renderGuideList(items = guides) {
   guideList.innerHTML = items
     .map((guide) => {
@@ -230,6 +279,7 @@ function renderGuide(id) {
       <h2 class="text-2xl font-bold text-ink sm:text-3xl">${guide.title}</h2>
       <p class="mt-2 max-w-3xl text-base leading-7 text-muted">${guide.summary}</p>
     </header>
+    ${customPanel(guide)}
     <div class="space-y-7">
       ${guide.sections
         .map((section) => {
@@ -257,6 +307,77 @@ function renderGuide(id) {
   `;
 
   renderGuideList(filterGuides(searchInput.value));
+  setupCustomPanel(guide);
+}
+
+function getPythonCommand() {
+  const version = document.querySelector("#pythonVersionInput")?.value.trim() || "3.11";
+  const venvName = document.querySelector("#venvNameInput")?.value.trim() || "venv";
+  return `py -${version} -m venv ${venvName}`;
+}
+
+function renderPythonCommand() {
+  const preview = document.querySelector("#pythonCommandPreview");
+  if (!preview) {
+    return;
+  }
+  preview.innerHTML = commandBlock(getPythonCommand());
+}
+
+function getGithubCommands() {
+  const url = document.querySelector("#githubUrlInput")?.value.trim() || "https://github.com/username/repository-name.git";
+  return [
+    "git status",
+    "git add .",
+    "git commit -m \"Update project\"",
+    `git remote add origin ${url}`,
+    "git branch -M main",
+    "git push -u origin main"
+  ];
+}
+
+function renderGithubCommands() {
+  const preview = document.querySelector("#githubCommandPreview");
+  if (!preview) {
+    return;
+  }
+  preview.innerHTML = getGithubCommands().map(commandBlock).join("");
+}
+
+function setupCustomPanel(guide) {
+  if (guide.id === "venv") {
+    renderPythonCommand();
+    document.querySelector("#pythonVersionInput")?.addEventListener("input", renderPythonCommand);
+    document.querySelector("#venvNameInput")?.addEventListener("input", renderPythonCommand);
+    document.querySelector("#copyPythonCommand")?.addEventListener("click", async () => {
+      await copyText(getPythonCommand());
+      showToast("Python command copied");
+    });
+  }
+
+  if (guide.id === "github") {
+    renderGithubCommands();
+    document.querySelector("#githubUrlInput")?.addEventListener("input", renderGithubCommands);
+    document.querySelector("#copyGithubCommands")?.addEventListener("click", async () => {
+      await copyText(getGithubCommands().join("\n"));
+      showToast("GitHub commands copied");
+    });
+    document.querySelector("#pasteGithubUrl")?.addEventListener("click", async () => {
+      if (!navigator.clipboard || !navigator.clipboard.readText) {
+        showToast("Paste manually");
+        return;
+      }
+      try {
+        const text = await navigator.clipboard.readText();
+        const input = document.querySelector("#githubUrlInput");
+        input.value = text.trim();
+        renderGithubCommands();
+        showToast("URL pasted");
+      } catch {
+        showToast("Paste manually");
+      }
+    });
+  }
 }
 
 function filterGuides(query) {

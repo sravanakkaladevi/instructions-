@@ -25,6 +25,15 @@ index.html
 - GitHub push
 - Django project setup
 
+## Website Features
+
+- Sidebar guide navigation
+- Search
+- Copy command buttons
+- Custom Python version command maker
+- Custom GitHub repository URL command maker
+- Print option
+
 ## Markdown Backup
 
 The numbered folders also contain simple `README.md` versions of each guide.
