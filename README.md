@@ -1,20 +1,23 @@
 # Instruction Guides
 
-This repository contains simple step-by-step guides for common development tasks.
+This repository contains separate beginner-friendly guides for common development tasks.
 
-## Available Guides
+## Guides
 
-| Guide | Description |
+| Folder | Topic |
 | --- | --- |
-| [Python Virtual Environment and GitHub Push](python-virtual-environment-github/README.md) | Create a Python virtual environment, install dependencies, save packages, and push a project to GitHub. |
+| [01-python-virtual-environment](01-python-virtual-environment/README.md) | Create and use a Python virtual environment |
+| [02-git-basics](02-git-basics/README.md) | Track files using Git |
+| [03-github-push](03-github-push/README.md) | Push a local project to GitHub |
+| [04-django-project-setup](04-django-project-setup/README.md) | Basic Django setup commands |
 
-## How to Use
+## How to Read
 
-Open any guide folder and read its `README.md` file.
+Open one folder at a time from the VS Code sidebar.
 
-Each guide is written with:
+Each folder has its own `README.md` file with:
 
-- Clear steps
-- Windows CMD commands
-- Beginner-friendly explanation
-- Common mistakes to avoid
+- Purpose
+- Step-by-step commands
+- Short explanation
+- Common mistakes
