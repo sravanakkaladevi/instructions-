@@ -27,6 +27,7 @@ index.html
 
 ## Website Features
 
+- Uiverse-inspired glass and gradient UI
 - Sidebar guide navigation
 - Search
 - Copy command buttons

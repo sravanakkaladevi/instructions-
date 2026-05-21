@@ -188,21 +188,21 @@ async function copyText(value) {
 
 function commandBlock(command) {
   return `
-    <div class="command-block group rounded border border-line bg-slate-950 p-3" data-original-command="${escapeHtml(command)}">
-      <div class="flex items-start justify-between gap-3">
-        <code class="command-code min-w-0 flex-1 whitespace-pre-wrap break-words text-sm leading-6 text-slate-100">${escapeHtml(command)}</code>
-        <textarea class="command-editor hidden min-h-16 flex-1 resize-y rounded border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-sm leading-6 text-slate-100 outline-none focus:border-brand" spellcheck="false">${escapeHtml(command)}</textarea>
-        <div class="flex shrink-0 flex-wrap justify-end gap-2">
-          <button class="edit-command rounded border border-slate-700 px-2 py-1 text-xs font-bold text-slate-200 hover:border-white">
+    <div class="command-block group rounded-2xl border border-slate-800 bg-slate-950 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-glow" data-original-command="${escapeHtml(command)}">
+      <div class="flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:items-start">
+        <code class="command-code min-w-0 flex-1 whitespace-pre-wrap break-words px-1 py-1 font-mono text-sm leading-6 text-cyan-50">${escapeHtml(command)}</code>
+        <textarea class="command-editor hidden min-h-16 flex-1 resize-y rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-sm leading-6 text-cyan-50 outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-300/10" spellcheck="false">${escapeHtml(command)}</textarea>
+        <div class="flex shrink-0 flex-wrap justify-start gap-2 sm:justify-end">
+          <button class="command-action edit-command rounded-lg border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-xs font-black text-slate-200 hover:border-cyan-300 hover:text-white">
             Edit
           </button>
-          <button class="save-command hidden rounded border border-brand bg-brand px-2 py-1 text-xs font-bold text-white hover:bg-teal-800">
+          <button class="command-action save-command hidden rounded-lg border border-cyan-400 bg-cyan-500 px-2.5 py-1.5 text-xs font-black text-slate-950 hover:bg-cyan-300">
             Save
           </button>
-          <button class="cancel-edit hidden rounded border border-slate-700 px-2 py-1 text-xs font-bold text-slate-200 hover:border-white">
+          <button class="command-action cancel-edit hidden rounded-lg border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-xs font-black text-slate-200 hover:border-white">
             Cancel
           </button>
-          <button class="copy-command rounded border border-slate-700 px-2 py-1 text-xs font-bold text-slate-200 hover:border-white" data-command="${escapeHtml(command)}">
+          <button class="command-action copy-command rounded-lg border border-blue-400/50 bg-blue-500/15 px-2.5 py-1.5 text-xs font-black text-blue-100 hover:border-blue-300 hover:bg-blue-500/30" data-command="${escapeHtml(command)}">
             Copy
           </button>
         </div>
@@ -214,20 +214,20 @@ function commandBlock(command) {
 function customPanel(guide) {
   if (guide.id === "venv") {
     return `
-      <section class="mb-7 rounded border border-brand/30 bg-brandSoft p-4">
-        <h3 class="text-lg font-bold text-ink">Custom Python Version Command</h3>
+      <section class="mb-7 rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-5 shadow-sm">
+        <h3 class="text-lg font-black text-ink">Custom Python Version Command</h3>
         <p class="mt-1 text-sm leading-6 text-muted">Enter your Python version and environment name, then copy the generated command.</p>
         <div class="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
           <label class="block">
-            <span class="mb-1 block text-xs font-bold uppercase text-muted">Python version</span>
-            <input id="pythonVersionInput" class="w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" value="3.11" placeholder="3.11" />
+            <span class="mb-1 block text-xs font-black uppercase text-muted">Python version</span>
+            <input id="pythonVersionInput" class="w-full rounded-xl border border-blue-100 bg-white px-3 py-2.5 text-sm font-semibold outline-none transition focus:border-brand focus:ring-4 focus:ring-brandSoft" value="3.11" placeholder="3.11" />
           </label>
           <label class="block">
-            <span class="mb-1 block text-xs font-bold uppercase text-muted">Venv name</span>
-            <input id="venvNameInput" class="w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" value="venv" placeholder="venv" />
+            <span class="mb-1 block text-xs font-black uppercase text-muted">Venv name</span>
+            <input id="venvNameInput" class="w-full rounded-xl border border-blue-100 bg-white px-3 py-2.5 text-sm font-semibold outline-none transition focus:border-brand focus:ring-4 focus:ring-brandSoft" value="venv" placeholder="venv" />
           </label>
           <div class="flex items-end">
-            <button id="copyPythonCommand" class="w-full rounded bg-brand px-4 py-2 text-sm font-bold text-white hover:bg-teal-800">Copy</button>
+            <button id="copyPythonCommand" class="uiverse-button w-full bg-gradient-to-r from-brand to-teal-500 px-4 py-2.5 text-sm font-black text-white shadow-glow">Copy</button>
           </div>
         </div>
         <div class="mt-4" id="pythonCommandPreview"></div>
@@ -237,19 +237,19 @@ function customPanel(guide) {
 
   if (guide.id === "github") {
     return `
-      <section class="mb-7 rounded border border-brand/30 bg-brandSoft p-4">
-        <h3 class="text-lg font-bold text-ink">Custom GitHub URL Setup</h3>
+      <section class="mb-7 rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-5 shadow-sm">
+        <h3 class="text-lg font-black text-ink">Custom GitHub URL Setup</h3>
         <p class="mt-1 text-sm leading-6 text-muted">Paste your GitHub repository URL and copy the ready command flow.</p>
         <div class="mt-4 grid gap-3 lg:grid-cols-[1fr_auto_auto]">
           <label class="block">
-            <span class="mb-1 block text-xs font-bold uppercase text-muted">GitHub repository URL</span>
-            <input id="githubUrlInput" class="w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" value="https://github.com/username/repository-name.git" />
+            <span class="mb-1 block text-xs font-black uppercase text-muted">GitHub repository URL</span>
+            <input id="githubUrlInput" class="w-full rounded-xl border border-blue-100 bg-white px-3 py-2.5 text-sm font-semibold outline-none transition focus:border-brand focus:ring-4 focus:ring-brandSoft" value="https://github.com/username/repository-name.git" />
           </label>
           <div class="flex items-end">
-            <button id="pasteGithubUrl" class="w-full rounded border border-brand bg-white px-4 py-2 text-sm font-bold text-brand hover:bg-white/70">Paste</button>
+            <button id="pasteGithubUrl" class="uiverse-button w-full border border-blue-200 bg-white px-4 py-2.5 text-sm font-black text-brand">Paste</button>
           </div>
           <div class="flex items-end">
-            <button id="copyGithubCommands" class="w-full rounded bg-brand px-4 py-2 text-sm font-bold text-white hover:bg-teal-800">Copy All</button>
+            <button id="copyGithubCommands" class="uiverse-button w-full bg-gradient-to-r from-brand to-teal-500 px-4 py-2.5 text-sm font-black text-white shadow-glow">Copy All</button>
           </div>
         </div>
         <div class="mt-4 space-y-3" id="githubCommandPreview"></div>
@@ -266,12 +266,12 @@ function renderGuideList(items = guides) {
       const active = guide.id === activeGuideId;
       return `
         <button
-          class="guide-button w-full rounded border px-3 py-3 text-left transition ${
-            active ? "border-brand bg-brandSoft text-ink" : "border-line bg-white text-ink hover:border-brand"
+          class="guide-button w-full rounded-2xl border px-3 py-3 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-glow ${
+            active ? "border-blue-300 bg-gradient-to-br from-blue-100 to-cyan-50 text-ink" : "border-white/80 bg-white/75 text-ink hover:border-blue-300"
           }"
           data-id="${guide.id}"
         >
-          <span class="block text-sm font-bold">${guide.title}</span>
+          <span class="block text-sm font-black">${guide.title}</span>
           <span class="mt-1 block text-xs leading-5 text-muted">${guide.summary}</span>
         </button>
       `;
@@ -284,13 +284,13 @@ function renderGuide(id) {
   activeGuideId = guide.id;
 
   guideMeta.innerHTML = `
-    <span class="rounded bg-brandSoft px-3 py-1 text-xs font-bold text-brand">${guide.level}</span>
-    <span class="rounded border border-line bg-white px-3 py-1 text-xs font-bold text-muted">${guide.sections.length} sections</span>
+    <span class="rounded-full bg-brandSoft px-3 py-1 text-xs font-black text-brand">${guide.level}</span>
+    <span class="rounded-full border border-blue-100 bg-white/85 px-3 py-1 text-xs font-black text-muted">${guide.sections.length} sections</span>
   `;
 
   guideContent.innerHTML = `
-    <header class="mb-6 border-b border-line pb-5">
-      <h2 class="text-2xl font-bold text-ink sm:text-3xl">${guide.title}</h2>
+    <header class="mb-6 border-b border-blue-100 pb-5">
+      <h2 class="text-2xl font-black text-ink sm:text-3xl">${guide.title}</h2>
       <p class="mt-2 max-w-3xl text-base leading-7 text-muted">${guide.summary}</p>
     </header>
     ${customPanel(guide)}
@@ -309,7 +309,7 @@ function renderGuide(id) {
 
           return `
             <section>
-              <h3 class="text-lg font-bold text-ink">${section.heading}</h3>
+              <h3 class="text-lg font-black text-ink">${section.heading}</h3>
               ${text}
               ${commands}
               ${bullets}
