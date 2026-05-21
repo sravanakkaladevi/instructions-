@@ -18,11 +18,22 @@ index.html
 | `assets/app.js` | Sidebar, guide content, search, and copy buttons |
 | `.gitignore` | Prevents unwanted files like `venv` and `.env` from being pushed |
 
+## Markdown Guides
+
+| Folder | Topic |
+| --- | --- |
+| `01-python-virtual-environment` | Python virtual environment |
+| `02-git-basics` | Git basics |
+| `03-github-push` | GitHub push |
+| `04-django-project-setup` | Django project setup |
+| `05-github-pages` | GitHub Pages website publishing |
+
 ## Guide Topics
 
 - Python virtual environment
 - Git basics
 - GitHub push
+- GitHub Pages
 - Django project setup
 
 ## Website Features

@@ -36,7 +36,7 @@ const guides = [
   {
     id: "git",
     title: "Git Basics",
-    summary: "Track project changes using Git commands.",
+    summary: "Set up Git, track files, commit changes, branches, and remotes.",
     level: "Beginner",
     sections: [
       {
@@ -44,14 +44,43 @@ const guides = [
         text: "Git records project changes. If code breaks, you can inspect what changed and recover previous work."
       },
       {
-        heading: "Commands",
+        heading: "First time Git setup",
         commands: [
           "git --version",
+          "git config --global user.name \"Your Name\"",
+          "git config --global user.email \"your-email@example.com\"",
+          "git config --global --list"
+        ]
+      },
+      {
+        heading: "Start tracking a project",
+        commands: [
           "git init",
           "git status",
           "git add .",
           "git commit -m \"Initial commit\"",
+          "git branch -M main",
           "git log --oneline"
+        ]
+      },
+      {
+        heading: "Useful daily commands",
+        commands: [
+          "git status",
+          "git diff",
+          "git add .",
+          "git commit -m \"Update project\"",
+          "git log --oneline",
+          "git remote -v"
+        ]
+      },
+      {
+        heading: "Branch commands",
+        commands: [
+          "git branch",
+          "git switch -c feature-name",
+          "git switch main",
+          "git merge feature-name"
         ]
       },
       {
@@ -60,6 +89,62 @@ const guides = [
           "Run git status before every commit.",
           "Do not commit venv.",
           "Do not commit .env or passwords."
+        ]
+      }
+    ]
+  },
+  {
+    id: "gitpage",
+    title: "GitHub Pages",
+    summary: "Publish this HTML, Tailwind, and JavaScript site using GitHub Pages.",
+    level: "Beginner",
+    sections: [
+      {
+        heading: "Why we use GitHub Pages",
+        text: "GitHub Pages hosts static websites directly from your repository. It is good for HTML, CSS, JavaScript, and project documentation websites."
+      },
+      {
+        heading: "Prepare files",
+        commands: [
+          "git status",
+          "git add index.html assets/app.js README.md",
+          "git commit -m \"Update website\"",
+          "git push"
+        ]
+      },
+      {
+        heading: "Enable GitHub Pages in browser",
+        bullets: [
+          "Open your GitHub repository.",
+          "Go to Settings.",
+          "Open Pages from the left sidebar.",
+          "Under Build and deployment, choose Deploy from a branch.",
+          "Select branch main and folder /root.",
+          "Click Save."
+        ]
+      },
+      {
+        heading: "Website URL format",
+        commands: [
+          "https://username.github.io/repository-name/"
+        ]
+      },
+      {
+        heading: "Update website later",
+        commands: [
+          "git status",
+          "git add .",
+          "git commit -m \"Update GitHub Pages site\"",
+          "git push"
+        ]
+      },
+      {
+        heading: "Common mistakes",
+        bullets: [
+          "Keep index.html in the repository root for simple GitHub Pages setup.",
+          "Wait one or two minutes after enabling Pages.",
+          "Refresh the Pages URL after pushing new changes.",
+          "GitHub Pages does not run Python or Django backend code."
         ]
       }
     ]
