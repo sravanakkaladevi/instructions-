@@ -188,11 +188,25 @@ async function copyText(value) {
 
 function commandBlock(command) {
   return `
-    <div class="group flex items-start justify-between gap-3 rounded border border-line bg-slate-950 p-3">
-      <code class="min-w-0 flex-1 whitespace-pre-wrap break-words text-sm leading-6 text-slate-100">${escapeHtml(command)}</code>
-      <button class="copy-command shrink-0 rounded border border-slate-700 px-2 py-1 text-xs font-bold text-slate-200 hover:border-white" data-command="${escapeHtml(command)}">
-        Copy
-      </button>
+    <div class="command-block group rounded border border-line bg-slate-950 p-3" data-original-command="${escapeHtml(command)}">
+      <div class="flex items-start justify-between gap-3">
+        <code class="command-code min-w-0 flex-1 whitespace-pre-wrap break-words text-sm leading-6 text-slate-100">${escapeHtml(command)}</code>
+        <textarea class="command-editor hidden min-h-16 flex-1 resize-y rounded border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-sm leading-6 text-slate-100 outline-none focus:border-brand" spellcheck="false">${escapeHtml(command)}</textarea>
+        <div class="flex shrink-0 flex-wrap justify-end gap-2">
+          <button class="edit-command rounded border border-slate-700 px-2 py-1 text-xs font-bold text-slate-200 hover:border-white">
+            Edit
+          </button>
+          <button class="save-command hidden rounded border border-brand bg-brand px-2 py-1 text-xs font-bold text-white hover:bg-teal-800">
+            Save
+          </button>
+          <button class="cancel-edit hidden rounded border border-slate-700 px-2 py-1 text-xs font-bold text-slate-200 hover:border-white">
+            Cancel
+          </button>
+          <button class="copy-command rounded border border-slate-700 px-2 py-1 text-xs font-bold text-slate-200 hover:border-white" data-command="${escapeHtml(command)}">
+            Copy
+          </button>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -430,13 +444,69 @@ guideList.addEventListener("click", (event) => {
 });
 
 guideContent.addEventListener("click", async (event) => {
-  const button = event.target.closest(".copy-command");
-  if (!button) {
+  const editButton = event.target.closest(".edit-command");
+  if (editButton) {
+    const block = editButton.closest(".command-block");
+    const code = block.querySelector(".command-code");
+    const editor = block.querySelector(".command-editor");
+    const saveButton = block.querySelector(".save-command");
+    const cancelButton = block.querySelector(".cancel-edit");
+
+    editor.value = code.textContent;
+    code.classList.add("hidden");
+    editor.classList.remove("hidden");
+    editButton.classList.add("hidden");
+    saveButton.classList.remove("hidden");
+    cancelButton.classList.remove("hidden");
+    editor.focus();
+    editor.select();
     return;
   }
 
-  await copyText(button.dataset.command);
-  showToast("Command copied");
+  const saveButton = event.target.closest(".save-command");
+  if (saveButton) {
+    const block = saveButton.closest(".command-block");
+    const code = block.querySelector(".command-code");
+    const editor = block.querySelector(".command-editor");
+    const editButton = block.querySelector(".edit-command");
+    const cancelButton = block.querySelector(".cancel-edit");
+    const copyButton = block.querySelector(".copy-command");
+
+    const editedCommand = editor.value.trim();
+    code.textContent = editedCommand;
+    copyButton.dataset.command = editedCommand;
+    block.dataset.originalCommand = editedCommand;
+    editor.classList.add("hidden");
+    code.classList.remove("hidden");
+    saveButton.classList.add("hidden");
+    cancelButton.classList.add("hidden");
+    editButton.classList.remove("hidden");
+    showToast("Command updated");
+    return;
+  }
+
+  const cancelButton = event.target.closest(".cancel-edit");
+  if (cancelButton) {
+    const block = cancelButton.closest(".command-block");
+    const code = block.querySelector(".command-code");
+    const editor = block.querySelector(".command-editor");
+    const editButton = block.querySelector(".edit-command");
+    const saveButton = block.querySelector(".save-command");
+
+    editor.value = code.textContent;
+    editor.classList.add("hidden");
+    code.classList.remove("hidden");
+    cancelButton.classList.add("hidden");
+    saveButton.classList.add("hidden");
+    editButton.classList.remove("hidden");
+    return;
+  }
+
+  const copyButton = event.target.closest(".copy-command");
+  if (copyButton) {
+    await copyText(copyButton.dataset.command);
+    showToast("Command copied");
+  }
 });
 
 searchInput.addEventListener("input", () => {
